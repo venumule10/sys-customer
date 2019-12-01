@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway" xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties"
+	xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd
+http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd">
+	<db:config name="Database_Config" doc:name="Database Config" doc:id="a85efda4-d1a1-4794-bc93-89e90703ae75" >
+		<db:my-sql-connection host="${secure::customer.db.host}" port="${secure::customer.db.port}" user="${secure::customer.db.user}" password="${secure::customer.db.password}" database="${secure::customer.db.database}"/>
+	</db:config>
+	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="06b93511-74ad-4d42-a084-142d65f59281" file="properties/${mule.env}.properties" key="${secret}" >
+		<secure-properties:encrypt algorithm="Blowfish" />
+	</secure-properties:config>
+	<global-property doc:name="Global Property" doc:id="200c27f6-0545-43a9-8c15-6e42d7c64e4a" name="mule.env" value="dev" />
+	<global-property doc:name="Global Property" doc:id="247d2fbf-11d1-4d48-8e31-24de21fd8771" name="secret" value="123456" />
+	<api-gateway:autodiscovery apiId="${secure::api_id}" doc:name="API Autodiscovery" doc:id="ce02ed43-3c5a-4cf6-9052-d1034b7b9701" flowRef="sys-customer-main" />
+</mule>

@@ -1,0 +1,35 @@
+#%RAML 1.0
+version: v1
+baseUri: https://anypoint.mulesoft.com/mocking/api/v1/links/af6388ef-2a2a-453e-be2b-b8bccbaa497f/ # 
+title: sys-customer
+description: to get/insert data into customer database
+/customer/{customer_id}:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+              {
+              "cname": "cname",
+              "cid": "100"
+              }
+/customer:
+  post:
+    body:
+      application/json:
+        example:
+          {
+             "cname": "cname",
+              "cid": "100"
+          }
+    responses:
+      201:
+        body:
+          application/json:
+           example:
+            {
+              "message":"inserted successfully"
+            }
+          
+    
